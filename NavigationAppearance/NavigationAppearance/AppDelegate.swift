@@ -6,6 +6,8 @@
 //  Copyright © 2015 VictorChee. All rights reserved.
 //
 
+// https://yalantis.com/blog/declarative-navigation-bar-appearance-configuration/
+
 import UIKit
 
 @UIApplicationMain
