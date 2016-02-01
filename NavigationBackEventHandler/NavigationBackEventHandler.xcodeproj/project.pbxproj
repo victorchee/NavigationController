@@ -13,6 +13,8 @@
 		BBD732A91C5EED8300B3AA10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBD732A71C5EED8300B3AA10 /* Main.storyboard */; };
 		BBD732AB1C5EED8300B3AA10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBD732AA1C5EED8300B3AA10 /* Assets.xcassets */; };
 		BBD732AE1C5EED8300B3AA10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBD732AC1C5EED8300B3AA10 /* LaunchScreen.storyboard */; };
+		BBD732B71C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD732B61C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.m */; };
+		BBD732BA1C5EF1ED00B3AA10 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD732B91C5EF1ED00B3AA10 /* NextViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		BBD732AA1C5EED8300B3AA10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBD732AD1C5EED8300B3AA10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BBD732AF1C5EED8300B3AA10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBD732B51C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
+		BBD732B61C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
+		BBD732B81C5EF1ED00B3AA10 /* NextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextViewController.h; sourceTree = "<group>"; };
+		BBD732B91C5EF1ED00B3AA10 /* NextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				BBD732A21C5EED8200B3AA10 /* AppDelegate.m */,
 				BBD732A41C5EED8200B3AA10 /* ViewController.h */,
 				BBD732A51C5EED8200B3AA10 /* ViewController.m */,
+				BBD732B81C5EF1ED00B3AA10 /* NextViewController.h */,
+				BBD732B91C5EF1ED00B3AA10 /* NextViewController.m */,
+				BBD732B51C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.h */,
+				BBD732B61C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.m */,
 				BBD732A71C5EED8300B3AA10 /* Main.storyboard */,
 				BBD732AA1C5EED8300B3AA10 /* Assets.xcassets */,
 				BBD732AC1C5EED8300B3AA10 /* LaunchScreen.storyboard */,
@@ -149,8 +159,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD732BA1C5EF1ED00B3AA10 /* NextViewController.m in Sources */,
 				BBD732A61C5EED8200B3AA10 /* ViewController.m in Sources */,
 				BBD732A31C5EED8200B3AA10 /* AppDelegate.m in Sources */,
+				BBD732B71C5EEE0400B3AA10 /* UIViewController+BackButtonHandler.m in Sources */,
 				BBD732A01C5EED8200B3AA10 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
