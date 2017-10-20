@@ -13,12 +13,12 @@ class ImageRenderer: NSObject {
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, CGRect(origin: CGPoint.zero, size: size))
+        context!.setFillColor(color.cgColor)
+        context!.fill(CGRect(origin: CGPoint.zero, size: size))
         
         let output = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return output
+        return output!
     }
 }

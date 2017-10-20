@@ -17,20 +17,20 @@ class DetailViewController: UIViewController, NavigationControllerAppearanceCont
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        navigationItem.rightBarButtonItem = editButtonItem()
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         setNeedsUpdateNavigationControllerAppearance()
     }
     
     // MARK: - AppearanceNavigationControllerContent
     func prefersNavigationControllerToolbarHidden(navigationController: UINavigationController) -> Bool {
-        return editing // hide toolbar during editing
+        return isEditing // hide toolbar during editing
     }
     
     func preferredNavigationControllerAppearance(navigationController: UINavigationController) -> Appearance? {
-        return editing ? appearance?.inverse() : appearance // inverse navigation bar color and status bar during editing
+        return isEditing ? appearance?.inverse() : appearance // inverse navigation bar color and status bar during editing
     }
 }

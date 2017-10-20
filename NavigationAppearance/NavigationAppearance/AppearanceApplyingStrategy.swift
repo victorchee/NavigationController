@@ -17,17 +17,17 @@ public class AppearanceApplyingStrategy {
         let navigationBar = navigationiController.navigationBar
         let toolbar = navigationiController.toolbar
         
-        if !navigationiController.navigationBarHidden {
-            navigationBar.setBackgroundImage(ImageRenderer.rederImageOfColor(appearance.navigationBar.backgroundColor), forBarMetrics: .Default)
+        if !navigationiController.isNavigationBarHidden {
+            navigationBar.setBackgroundImage(ImageRenderer.rederImageOfColor(color: appearance.navigationBar.backgroundColor), for: .default)
             navigationBar.tintColor = appearance.navigationBar.tintColor
             navigationBar.barTintColor = appearance.navigationBar.barTintColor
-            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: appearance.navigationBar.tintColor]
+            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appearance.navigationBar.tintColor]
         }
         
-        if !navigationiController.toolbarHidden {
-            toolbar.setBackgroundImage(ImageRenderer.rederImageOfColor(appearance.toolBar.backgroundColor), forToolbarPosition: .Any, barMetrics: .Default)
-            toolbar.tintColor = appearance.toolBar.tintColor
-            toolbar.barTintColor = appearance.toolBar.barTintColor
+        if !navigationiController.isToolbarHidden {
+            toolbar?.setBackgroundImage(ImageRenderer.rederImageOfColor(color: appearance.toolBar.backgroundColor), forToolbarPosition: .any, barMetrics: .default)
+            toolbar?.tintColor = appearance.toolBar.tintColor
+            toolbar?.barTintColor = appearance.toolBar.barTintColor
         }
     }
 }

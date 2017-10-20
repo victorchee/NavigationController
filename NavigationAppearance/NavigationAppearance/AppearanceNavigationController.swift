@@ -14,7 +14,7 @@ public class AppearanceNavigationController: UINavigationController, UINavigatio
         delegate = self
     }
     
-    override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         delegate = self
     }
@@ -29,31 +29,31 @@ public class AppearanceNavigationController: UINavigationController, UINavigatio
     }
     
     // MARK: - UINavigationControllerDelegate
-    public func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         guard let appearanceContext = viewController as? NavigationControllerAppearanceContext else {
             return
         }
-        setNavigationBarHidden(appearanceContext.prefersNavigationControllerBarHidden(self), animated: animated)
-        setToolbarHidden(appearanceContext.prefersNavigationControllerToolbarHidden(self), animated: animated)
-        applyAppearance(appearanceContext.preferredNavigationControllerAppearance(self), animated: animated)
+        setNavigationBarHidden(appearanceContext.prefersNavigationControllerBarHidden(navigationController: self), animated: animated)
+        setToolbarHidden(appearanceContext.prefersNavigationControllerToolbarHidden(navigationController: self), animated: animated)
+        applyAppearance(appearance: appearanceContext.preferredNavigationControllerAppearance(navigationController: self), animated: animated)
         
         // interactive gesture requires more complex login.
-        guard let coordinator = viewController.transitionCoordinator() where coordinator.isInteractive() else {
+        guard let coordinator = viewController.transitionCoordinator, coordinator.isInteractive else {
             return
         }
-        coordinator.animateAlongsideTransition({ (_) -> Void in
+        coordinator.animate(alongsideTransition: { (_) -> Void in
             
             }) { (context) -> Void in
-                if context.isCancelled(), let appearanceContext = self.topViewController as? NavigationControllerAppearanceContext {
+                if context.isCancelled, let appearanceContext = self.topViewController as? NavigationControllerAppearanceContext {
                     // hiding navigation bar & toolbar within interaction completion will result into inconsistent UI state
-                    self.setNavigationBarHidden(appearanceContext.prefersNavigationControllerBarHidden(self), animated: animated)
-                    self.setToolbarHidden(appearanceContext.prefersNavigationControllerToolbarHidden(self), animated: animated)
+                    self.setNavigationBarHidden(appearanceContext.prefersNavigationControllerBarHidden(navigationController: self), animated: animated)
+                    self.setToolbarHidden(appearanceContext.prefersNavigationControllerToolbarHidden(navigationController: self), animated: animated)
                 }
         }
-        coordinator.notifyWhenInteractionEndsUsingBlock { (context) -> Void in
-            if context.isCancelled(), let from = context.viewControllerForKey(UITransitionContextFromViewControllerKey) as? NavigationControllerAppearanceContext {
+        coordinator.notifyWhenInteractionEnds { (context) -> Void in
+            if context.isCancelled, let from = context.viewController(forKey: UITransitionContextViewControllerKey.from) as? NavigationControllerAppearanceContext {
                 // changing navigation bar & toolbar appearance within animate completion will result into UI glitch
-                self.applyAppearance(from.preferredNavigationControllerAppearance(self), animated: true)
+                self.applyAppearance(appearance: from.preferredNavigationControllerAppearance(navigationController: self), animated: true)
             }
         }
     }
@@ -62,40 +62,40 @@ public class AppearanceNavigationController: UINavigationController, UINavigatio
     private var appliedAppearance: Appearance?
     public var appearanceApplyingStrategy = AppearanceApplyingStrategy() {
         didSet {
-            applyAppearance(appliedAppearance, animated: false)
+            applyAppearance(appearance: appliedAppearance, animated: false)
         }
     }
     
     private func applyAppearance(appearance: Appearance?, animated: Bool) {
         if appearance != nil && appliedAppearance != appearance {
             appliedAppearance = appearance
-            appearanceApplyingStrategy.apply(appearance, toNavigationController: self, animated: animated)
+            appearanceApplyingStrategy.apply(appearance: appearance, toNavigationController: self, animated: animated)
             setNeedsStatusBarAppearanceUpdate()
         }
     }
     
     // MARK: - Appearance Update
     func updateAppearanceForViewController(viewController: UIViewController) {
-        guard let context = viewController as? NavigationControllerAppearanceContext where viewController == topViewController && transitionCoordinator() == nil else {
+        guard let context = viewController as? NavigationControllerAppearanceContext, viewController == topViewController && transitionCoordinator == nil else {
             return
         }
-        setNavigationBarHidden(context.prefersNavigationControllerBarHidden(self), animated: true)
-        setToolbarHidden(context.prefersNavigationControllerToolbarHidden(self), animated: true)
-        applyAppearance(context.preferredNavigationControllerAppearance(self), animated: true)
+        setNavigationBarHidden(context.prefersNavigationControllerBarHidden(navigationController: self), animated: true)
+        setToolbarHidden(context.prefersNavigationControllerToolbarHidden(navigationController: self), animated: true)
+        applyAppearance(appearance: context.preferredNavigationControllerAppearance(navigationController: self), animated: true)
     }
     
     public func updateAppearance() {
         guard let top = topViewController else {
             return
         }
-        updateAppearanceForViewController(top)
+        updateAppearanceForViewController(viewController: top)
     }
     
-    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return appliedAppearance?.statusBarStyle ?? super.preferredStatusBarStyle()
+    override public var preferredStatusBarStyle: UIStatusBarStyle {
+        return appliedAppearance?.statusBarStyle ?? super.preferredStatusBarStyle
     }
     
-    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return appliedAppearance != nil ? .Fade : super.preferredStatusBarUpdateAnimation()
+    override public var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return appliedAppearance != nil ? .fade : super.preferredStatusBarUpdateAnimation
     }
 }
